@@ -1,0 +1,66 @@
+ .map {
+     height: calc(100vh - 52px);
+     width: auto;
+ }
+ 
+ h2 {
+     font-family: 'Arvo', serif;
+     color: #ffffff;
+ }
+ 
+ h3 {
+     font-family: 'Arvo', serif;
+     color: #ffffff;
+ }
+ 
+ h4 {
+     font-family: 'Arvo', serif;
+     color: #ffffff;
+ }
+ 
+ h5 {
+     font-family: 'Arvo', serif;
+     color: #ffffff;
+ }
+ 
+ #emailText {
+     font-family: 'Arvo', serif;
+     color: #000000;
+ }
+ 
+ #pubText {
+     font-family: 'Arvo', serif;
+     color: #000000;
+ }
+ 
+ #myHeader {
+     max-height: 5px;
+     background-color: #252830;
+ }
+ 
+ #stepOne {
+     background-color: #252830;
+ }
+ 
+ #stepTwo {
+     background-color: #f6ff00;
+ }
+ 
+ #headerText {
+     font-family: 'Arvo', serif;
+     color: #ffffff;
+ }
+ 
+ #stepOneText {
+     font-family: 'Arvo', serif;
+     color: #ffffff;
+ }
+ 
+ #stepTwoText {
+     font-family: 'Arvo', serif;
+     color: #000000;
+ }
+ 
+ body {
+     background-color: #e3e3e3;
+ }

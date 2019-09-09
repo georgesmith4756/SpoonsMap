@@ -12,3 +12,14 @@
         })
       });
 	  
+ var layer = new ol.layer.Vector({
+     source: new ol.source.Vector({
+         features: [
+             new ol.Feature({
+                 geometry: new ol.geom.Point(ol.proj.fromLonLat([4.35247, 50.84673]))
+             })
+         ]
+     })
+ });
+ map.addLayer(layer);
+	  

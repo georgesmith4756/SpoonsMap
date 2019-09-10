@@ -34,8 +34,8 @@
  }
  
  #myHeader {
-     max-height: 5px;
      background-color: #252830;
+	 max-height: 1px !important;
  }
  
  #stepOne {

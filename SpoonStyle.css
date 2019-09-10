@@ -40,10 +40,13 @@
  
  #stepOne {
      background-color: #252830;
+	 padding:10px;
  }
  
  #stepTwo {
      background-color: #f6ff00;
+	 padding:10px;
+	 visibility: visible;
  }
  
  #headerText {
@@ -59,6 +62,7 @@
  #stepTwoText {
      font-family: 'Arvo', serif;
      color: #000000;
+	 vertical-align: top;
  }
  
  body {

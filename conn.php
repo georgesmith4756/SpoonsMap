@@ -17,7 +17,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "Pub: " . $row["pub"]. " - Username: " . $row["username"]. " Date:" . $row["date"]." Order Total:" . $row["orderTotal"]. "<br>";
+        echo "Pub: " . $row["pub"]. " - Username: " . $row["username"]. " Date:" . $row["date"]." Order Total:" . $row["orderTotal"]." Order Total:" . $row["orderTotal"]. "<br>";
     }
 } else {
     echo "0 results";

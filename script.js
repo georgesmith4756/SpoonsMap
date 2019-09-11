@@ -40,7 +40,7 @@ function retrievePubsVisited() {
 
 function retrievePubLocation(postcode) {
     let method = "GET";
-    let url = "http://api.postcodes.io/postcodes/" + postcode;
+    let url = "http://34.90.35.87:8000/pubs/postcodes/" + postcode;
     let callback = getLatLon;
     let headers = {
         "Accept": "application/json;charset=UTF-8",

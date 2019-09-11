@@ -28,7 +28,7 @@ function httpRequest(method, url, callback, headers, body) {
 function retrievePubsVisited() {
 
     let method = "GET";
-    let url = "http://localhost:9000/pubs"
+    let url = "http://34.90.35.87:9000/pubs"
     let callback = getEntries;
     let headers = {
         "Accept": "application/json;charset=UTF-8",

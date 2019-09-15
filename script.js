@@ -62,6 +62,8 @@ function getLatLon(data) {
 function getEntries(data) {
     retData = JSON.parse(data);
 
+    console.log(retData);
+
     input = document.getElementById("enteredEmail").value;
 
     for (i = 0; i < retData.length; i++) {

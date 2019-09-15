@@ -1,3 +1,4 @@
+const pubTable = document.getElementById("pubTable");
 var map = new ol.Map({
     target: 'map',
     layers: [
@@ -106,7 +107,7 @@ function getAllProducts() {
     
         for(let i=0;i<json.length;i++){
             let temp = json[i];
-            newTableEntries(productTable,temp["pub"]);
+            newTableEntries(pubTable,temp["pub"]);
         }
     }
     }

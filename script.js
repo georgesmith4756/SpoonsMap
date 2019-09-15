@@ -75,7 +75,7 @@ function getEntries(data) {
 
 function addMarker(lat, lon) {
 
-    console.log("adding marker at " + lat + lon)
+    window.alert("adding marker at " + lat + lon);
 
     var layer = new ol.layer.Vector({
         source: new ol.source.Vector({

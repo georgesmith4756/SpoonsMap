@@ -62,7 +62,6 @@ function getLatLon(data) {
 function getEntries(data) {
     retData = JSON.parse(data);
 
-    console.log(retData);
 
     input = document.getElementById("enteredEmail").value;
 
@@ -77,7 +76,7 @@ function getEntries(data) {
 
 function addMarker(lat, lon) {
 
-    window.alert("adding marker at " + lat + lon);
+    console.log("adding marker at " + lat + lon);
 
     var layer = new ol.layer.Vector({
         source: new ol.source.Vector({
@@ -90,4 +89,28 @@ function addMarker(lat, lon) {
     });
     map.addLayer(layer);
 
+}
+
+function getAllProducts() {
+    var json;
+    var xhr = new XMLHttpRequest();
+    var url = "http://34.90.35.87:9000/publist";
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            json = JSON.parse(xhr.responseText);
+            console.log(xhr.responseText)
+            console.log(json);
+            
+    
+        for(let i=0;i<json.length;i++){
+            let temp = json[i];
+            newTableEntries(productTable,temp["pub"]);
+        }
+    }
+    }
+
+    xhr.send();
+    return false;
 }

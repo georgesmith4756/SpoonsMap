@@ -64,6 +64,11 @@
      color: #000000;
 	 vertical-align: top;
  }
+
+ #pubcontainer{
+    overflow:scroll;
+
+ }
  
  body {
      background-color: #e3e3e3;

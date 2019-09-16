@@ -14,14 +14,14 @@
     <title>SpoonsMap</title>
 </head>
 
-<body>
+<body onload="getAllPubs()">
     <div class="jumbotron text-center" id="myHeader">
         <h1 id="headerText">Your Spoons Map</h1>
     </div>
 
     <div class="container">
         <div class="row">
-            <div class="col-xs-6 col-sm">
+            <div class="col-xs-6 col-sm" id="pubcontainer" style="max-height:550px" >
                     <table class="table table-striped" id="pubTable">
                             <thead>
                                 <tr>
@@ -29,15 +29,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                
-                                </tr>
-                                <tr>
-                
-                                </tr>
-                                <tr>
-                
-                                </tr>
+                                
                             </tbody>
                         </table>
                         

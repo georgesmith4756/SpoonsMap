@@ -92,13 +92,14 @@ function addMarker(lat, lon) {
 
 }
 
-function getAllProducts() {
+function getAllPubs() {
     var json;
     var xhr = new XMLHttpRequest();
     var url = "http://34.90.35.87:9000/publist";
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = () => {
+
         if (xhr.readyState === 4 && xhr.status === 200) {
             json = JSON.parse(xhr.responseText);
             console.log(xhr.responseText)
@@ -115,3 +116,13 @@ function getAllProducts() {
     xhr.send();
     return false;
 }
+
+async function newTableEntries(table){
+    row = document.createElement("tr");
+    for( let i =1; i <arguments.length;i++){
+        box = document.createElement("td");
+        box.innerHTML = arguments[i];
+        row.appendChild(box);
+    }
+    table.appendChild(row);
+ }

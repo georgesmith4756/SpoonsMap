@@ -1,4 +1,7 @@
 const pubTable = document.getElementById("pubTable");
+
+
+
 var map = new ol.Map({
     target: 'map',
     layers: [
@@ -93,6 +96,9 @@ function addMarker(lat, lon) {
 }
 
 function getAllPubs() {
+
+   
+
     var json;
     var xhr = new XMLHttpRequest();
     var url = "http://34.90.35.87:9000/publist";
@@ -125,4 +131,26 @@ async function newTableEntries(table){
         row.appendChild(box);
     }
     table.appendChild(row);
+ }
+
+ function getTotalPubCount(){
+    var json;
+    var xhr = new XMLHttpRequest();
+    var url = "http://34.90.35.87:9000/pubcount";
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = () => {
+
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            json = JSON.parse(xhr.responseText);
+
+            document.getElementById("pubText").innerHTML = json;
+            
+        
+    }
+    }
+
+    xhr.send();
+    return json;
+
  }

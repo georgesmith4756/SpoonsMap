@@ -1,6 +1,6 @@
 const pubTable = document.getElementById("pubTable");
-
-
+var userPubCount = 0;
+var totalPubCount = 0;
 
 var map = new ol.Map({
     target: 'map',
@@ -30,6 +30,12 @@ function httpRequest(method, url, callback, headers, body) {
 }
 
 function retrievePubsVisited() {
+    const mapLayers = [...map.getLayers().getArray()];
+    for(let i = 1; i < mapLayers.length; i++){
+        map.removeLayer(mapLayers[i]);
+    }
+
+    userPubCount = 0;
 
     let method = "GET";
     let url = "http://34.90.35.87:9000/pubs"
@@ -38,7 +44,7 @@ function retrievePubsVisited() {
         "Accept": "application/json;charset=UTF-8",
     }
     httpRequest(method, url, callback, headers);
-
+    
 
 }
 
@@ -66,21 +72,25 @@ function getLatLon(data) {
 function getEntries(data) {
     retData = JSON.parse(data);
 
-
+    //debugger;
     input = document.getElementById("enteredEmail").value;
 
     for (i = 0; i < retData.length; i++) {
         if (retData[i].username == input) {
-            console.log(retData[i].pub);
             retrievePubLocation(retData[i].postcode);
+            userPubCount += 1;
+           // console.log(userPubCount);
         }
     }
+
+    document.getElementById("pubText").innerHTML = "You have visited " + userPubCount + "/" + totalPubCount + " pubs";
+
+    
 }
 
 
 function addMarker(lat, lon) {
-
-    console.log("adding marker at " + lat + lon);
+    
 
     var layer = new ol.layer.Vector({
         source: new ol.source.Vector({
@@ -97,6 +107,7 @@ function addMarker(lat, lon) {
 
 function getAllPubs() {
 
+    getTotalPubCount();
    
 
     var json;
@@ -108,8 +119,7 @@ function getAllPubs() {
 
         if (xhr.readyState === 4 && xhr.status === 200) {
             json = JSON.parse(xhr.responseText);
-            console.log(xhr.responseText)
-            console.log(json);
+        
             
     
         for(let i=0;i<json.length;i++){
@@ -144,7 +154,31 @@ async function newTableEntries(table){
         if (xhr.readyState === 4 && xhr.status === 200) {
             json = JSON.parse(xhr.responseText);
 
-            document.getElementById("pubText").innerHTML = json;
+            
+            totalPubCount = json;
+
+            
+        
+            }
+    }
+
+    xhr.send();
+    return json;
+
+ }
+
+ function getEntryCount(){
+    var json;
+    var xhr = new XMLHttpRequest();
+    var url = "http://34.90.35.87:9000/entrycount";
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = () => {
+
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            json = JSON.parse(xhr.responseText);
+
+           userPubCount = json;
             
         
     }

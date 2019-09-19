@@ -37,6 +37,11 @@
      font-family: 'Arvo', serif;
      color: #000000;
  }
+
+ #spendText {
+    font-family: 'Arvo', serif;
+    color: #000000;
+}
  
  #myHeader {
      background-color: #252830;

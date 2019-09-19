@@ -19,7 +19,6 @@
     </div>
 
     <div class="container">
-        <button class="btn btn-primary" type="button" onclick="getTotalPubCount()">Tester</button>
         <div class="row">
             <div class="col-xs-6 col-sm" id="pubcontainer" style="max-height:550px" >
                     <table class="table table-striped" id="pubTable">
@@ -31,9 +30,9 @@
                             <tbody>
                                 
                             </tbody>
-                            <button class="btn btn-success" id="pub-add-button" type="button" onclick="retrievePubsVisited()" data-toggle="modal" data-target="#addPubModal">Add</button>
-                            <button class="btn btn-warning" id="pub-update-button" type="button" onclick="retrievePubsVisited()" data-toggle="modal" data-target="#updatePubModal">Update</button>
-                            <button class="btn btn-danger" id="pub-delete-button" type="button" onclick="retrievePubsVisited()" data-toggle="modal" data-target="#deletePubModal">Delete</button> 
+                            <button class="btn btn-success" id="pub-add-button" type="button" onclick="" data-toggle="modal" data-target="#addPubModal">Add</button>
+                            <button class="btn btn-warning" id="pub-update-button" type="button" onclick="" data-toggle="modal" data-target="#updatePubModal">Update</button>
+                            <button class="btn btn-danger" id="pub-delete-button" type="button" onclick="" data-toggle="modal" data-target="#deletePubModal">Delete</button> 
                             <br>
                         </table>
                         
@@ -41,9 +40,9 @@
             </div>
             <div class="col-xs-6 col-sm">
                 <div id="map" style="max-height:65%" class="map"></div>
-                            <button class="btn btn-success" id="pub-add-success" type="button" onclick="retrievePubsVisited()" data-toggle="modal" data-target="#addVisitModal">Add</button>
-                            <button class="btn btn-warning" id="pub-update-button" type="button" onclick="retrievePubsVisited()" data-toggle="modal" data-target="#updateVisitModal">Update</button>
-                            <button class="btn btn-danger" id="pub-delete-button" type="button" onclick="retrievePubsVisited()" data-toggle="modal" data-target="#deleteVisitModal">Delete</button>
+                            <button class="btn btn-success" id="pub-add-button" type="button" onclick="" data-toggle="modal" data-target="#addVisitModal">Add</button>
+                            <button class="btn btn-warning" id="pub-update-button" type="button" onclick="" data-toggle="modal" data-target="#updateVisitModal">Update</button>
+                            <button class="btn btn-danger" id="pub-delete-button" type="button" onclick="" data-toggle="modal" data-target="#deleteVisitModal">Delete</button>
             </div>
             <div class="col-xs-6 col-sm">
                 <div class="jumbotron jumbotron-fluid text-center">
@@ -90,7 +89,7 @@
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">    
-                  <h4 id="modalheader" class="modal-title">Modal Header</h4>
+                  <h4 id="modalheader" class="modal-title">Add a Pub</h4>
                 </div>
                 <div class="modal-body">
                   <p>Some text in the modal.</p>
@@ -110,7 +109,7 @@
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title" id="modalheader">Modal Header</h4>
+                  <h4 class="modal-title" id="modalheader">Update a Pub</h4>
                 </div>
                 <div class="modal-body">
                   <p>Some text in the modal.</p>
@@ -129,8 +128,8 @@
           
               <!-- Modal content-->
               <div class="modal-content">
-                <div class="modal-header" id="modalheader">
-                  <h4 class="modal-title">Modal Header</h4>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modalheader"> Delete a Pub</h4>
                 </div>
                 <div class="modal-body">
                   <p>Some text in the modal.</p>
@@ -149,8 +148,8 @@
           
               <!-- Modal content-->
               <div class="modal-content">
-                <div class="modal-header" id="modalheader">
-                  <h4 class="modal-title">Modal Header</h4>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modalheader">Add a Visit</h4>
                 </div>
                 <div class="modal-body">
                   <p>Some text in the modal.</p>
@@ -169,8 +168,8 @@
           
               <!-- Modal content-->
               <div class="modal-content">
-                <div class="modal-header" id="modalheader">
-                  <h4 class="modal-title">Modal Header</h4>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modalheader">Update a Visit</h4>
                 </div>
                 <div class="modal-body">
                   <p>Some text in the modal.</p>
@@ -184,13 +183,13 @@
           </div> 
 
             <!-- Modal -->
-    <div id="deletePubModal" class="modal fade" role="dialog">
+    <div id="deleteVisitModal" class="modal fade" role="dialog">
             <div class="modal-dialog" >
           
               <!-- Modal content-->
               <div class="modal-content">
-                <div class="modal-header" id="modalheader">
-                  <h4 class="modal-title">Modal Header</h4>
+                <div class="modal-header" >
+                  <h4 class="modal-title" id="modalheader">Delete a Visit</h4>
                 </div>
                 <div class="modal-body">
                   <p>Some text in the modal.</p>

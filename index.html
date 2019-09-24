@@ -13,25 +13,46 @@
     <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
     <title>SpoonsMap</title>
 </head>
-
-<body>
+<body onload="getAllPubs()">
     <div class="jumbotron text-center" id="myHeader">
         <h1 id="headerText">Your Spoons Map</h1>
     </div>
 
     <div class="container">
         <div class="row">
-            <div class="col-xs-6 col-sm">
-                <div id="map" style="max-height:65%" class="map"></div>
+            <div class="col-xs-6 col-sm" id="pubcontainer" style="max-height:550px" >
+                    <table class="table table-striped" id="pubTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Pub</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                            <button class="btn btn-success" id="pub-add-button" type="button" onclick="" data-toggle="modal" data-target="#addPubModal">Add</button>
+                            <button class="btn btn-warning" id="pub-update-button" type="button" onclick="" data-toggle="modal" data-target="#updatePubModal">Update</button>
+                            <button class="btn btn-danger" id="pub-delete-button" type="button" onclick="" data-toggle="modal" data-target="#deletePubModal">Delete</button> 
+                            <br>
+                        </table>
+                        
+                        
             </div>
             <div class="col-xs-6 col-sm">
+                <div id="map" style="max-height:65%" class="map"></div>
+                            <button class="btn btn-success" id="pub-add-button" type="button" onclick="" data-toggle="modal" data-target="#addVisitModal">Add</button>
+                            <button class="btn btn-warning" id="pub-update-button" type="button" onclick="" data-toggle="modal" data-target="#updateVisitModal">Update</button>
+                            <button class="btn btn-danger" id="pub-delete-button" type="button" onclick="" data-toggle="modal" data-target="#deleteVisitModal">Delete</button>
+            </div>
+            <div class="col-xs-6 col-sm h-100">
                 <div class="jumbotron jumbotron-fluid text-center">
-                    <h2 id="pubText"> You have visited ?/? pubs
-                        <h2>
+                    <h2 id="entryText"> You have ? logged visits <h2>
                 </div>
                 <div class="jumbotron jumbotron-fluid text-center">
-                    <h2 id="pubText"> Your total spend is: Testing
-              <h2>
+                  <h2 id="pubText"> You have visited ?/? pubs<h2>
+              </div>
+                <div class="jumbotron jumbotron-fluid text-center">
+                    <h2 id="spendText"> Your total spend is: Testing <h2>
                 </div>
             </div>
             <div class="col-xs-6 col-sm" style="max-width:32%;">
@@ -50,7 +71,7 @@
                     <h3 id="stepTwoText">Step 2:</h3>
                     <h5 id="emailText"> Enter your email:</h5>
 					<div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon2">
+                        <input id= "enteredEmail" type="email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button" onclick="retrievePubsVisited()">Go</button>
                         </div>
@@ -61,11 +82,200 @@
 
         </div>
     </div>
+            
+      
+        <!-- Modal -->
+    <div id="addPubModal" class="modal" role="dialog">
+            <div class="modal-dialog">
+          
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">    
+                  <h4 id="modalheader" class="modal-title">Add a Pub</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="input-group input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Pub Name</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="modalPubText">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" onclick="addPub()">Add</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+          
+            </div>
+          </div> 
+
+            <!-- Modal -->
+    <div id="updatePubModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+          
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modalheader">Update a Pub</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="input-group input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Pub ID</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+                  <div class="input-group input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">New Pub Name</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" onclick="addPub()">Update</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+          
+            </div>
+          </div> 
+
+            <!-- Modal -->
+    <div id="deletePubModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+          
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modalheader"> Delete a Pub</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="input-group input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Pub ID</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="pubUpdateID">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" onclick="addPub()">Delete</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reloadPage()">Close</button>
+                </div>
+              </div>
+          
+            </div>
+          </div> 
+
+            <!-- Modal -->
+    <div id="addVisitModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+          
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modalheader">Add a Visit</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="input-group input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Pub Name</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="modalEntryPubName">
+                  </div>
+                  <div class="input-group input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Postcode</span>
+                      </div>
+                      <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="modalEntryPostcode">
+                    </div>
+                  
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="modalEntryUsername">
+                  </div>
+                  
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Order Total</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="modalEntryOrderTotal">
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Date</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="modalEntryDate">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" onclick="addVisit()">Add</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+          
+            </div>
+          </div> 
+
+            <!-- Modal -->
+    <div id="updateVisitModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+          
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modalheader">Update a Visit</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="input-group input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Visit ID</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+          
+            </div>
+          </div> 
+
+            <!-- Modal -->
+    <div id="deleteVisitModal" class="modal fade" role="dialog">
+            <div class="modal-dialog" >
+          
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header" >
+                  <h4 class="modal-title" id="modalheader">Delete a Visit</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="input-group input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Visit ID:</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+          
+            </div>
+          </div> 
 <script src="script.js"></script>
 </body>
 <footer>
     <h4> By George Smith
         <h4>
 </footer>
+
 
 </html>

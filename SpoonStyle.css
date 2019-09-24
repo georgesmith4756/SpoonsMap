@@ -2,6 +2,7 @@
      height: calc(100vh - 52px);
      width: auto;
  }
+
  
  h2 {
      font-family: 'Arvo', serif;
@@ -73,6 +74,12 @@
      font-family: 'Arvo', serif;
      color: #000000;
 	 vertical-align: top;
+ }
+
+ #entryText{
+    font-family: 'Arvo', serif;
+    color: #000000;
+    vertical-align: top;
  }
 
  #pubcontainer{

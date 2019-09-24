@@ -1,5 +1,5 @@
 const pubTable = document.getElementById("pubTable");
-var userPubCount = 0;
+var userEntryCount = 0;
 var totalPubCount = 0;
 
 var map = new ol.Map({
@@ -48,6 +48,8 @@ function retrievePubsVisited() {
 
 }
 
+
+
 function retrievePubLocation(postcode) {
     let method = "GET";
     let url = "http://34.90.35.87:8000/postcodes/" + postcode;
@@ -78,12 +80,11 @@ function getEntries(data) {
     for (i = 0; i < retData.length; i++) {
         if (retData[i].username == input) {
             retrievePubLocation(retData[i].postcode);
-            userPubCount += 1;
-           // console.log(userPubCount);
+            userEntryCount += 1;
         }
     }
 
-    document.getElementById("pubText").innerHTML = "You have visited " + userPubCount + "/" + totalPubCount + " pubs";
+    document.getElementById("entryText").innerHTML = "You have " + userEntryCount + " logged visits";
 
     
 }
@@ -188,3 +189,87 @@ async function newTableEntries(table){
     return json;
 
  }
+
+ function addPub() {
+
+    let pubName = {pub: document.getElementById("modalPubText").value};
+
+    let stringPub = JSON.stringify(pubName);
+
+    let method = "POST";
+    let url = "http://34.90.35.87:9000/publist"
+    let callback = successfulAdd;
+    let headers = {
+        "Content-Type": "application/json",
+    }
+    httpRequest(method, url, callback, headers, stringPub);
+    
+
+}
+
+function updatePub(){
+    let pubName = {pub: document.getElementById("modalPubText").value};
+
+    let stringPub = JSON.stringify(pubName);
+
+    let method = "PUT";
+    let url = "http://34.90.35.87:9000/publist"
+    let callback = successfulAdd;
+    let headers = {
+        "Content-Type": "application/json",
+    }
+    httpRequest(method, url, callback, headers, stringPub);
+
+}
+
+function deletePub(){
+    let pubName = {pub: document.getElementById("modalPubText").value};
+
+    let stringPub = JSON.stringify(pubName);
+
+    let method = "DELETE";
+    let url = "http://34.90.35.87:9000/publist"
+    let callback = successfulAdd;
+    let headers = {
+        "Content-Type": "application/json",
+    }
+    httpRequest(method, url, callback, headers, stringPub);
+    
+}
+
+function addVisit(){
+    let entry = {pub: document.getElementById("modalEntryPubName").value,
+     username: document.getElementById("modalEntryUsername").value, 
+     date: document.getElementById("modalEntryDate").value,
+      orderTotal: document.getElementById("modalEntryOrderTotal").value,
+       postcode: document.getElementById("modalEntryPostcode").value};
+
+    let stringEntry = JSON.stringify(entry);
+
+    let method = "POST";
+    let url = "http://34.90.35.87:9000/pubs"
+    let callback = successfulAdd;
+    let headers = {
+        "Content-Type": "application/json",
+    }
+    httpRequest(method, url, callback, headers, stringEntry);
+    
+}
+
+function updateVisit(){
+
+    
+}
+
+function deleteVisit(){
+
+    
+}
+
+function successfulAdd(){
+    window.alert("added");
+}
+
+function reloadPage(){
+    location.reload()
+}

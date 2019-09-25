@@ -25,6 +25,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Pub</th>
+                                    <th scope="col">ID</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,7 +62,7 @@
 					<br>
 					<br>
                     <h3 id="stepOneText" >Step 1:</h3>
-                    <h5> Please forward any receipts you have from orders@jdwetherspoon.com to spoonscheck@outlook.com </h5>
+                    <h5> Please forward any receipts you have from orders@jdwetherspoon.com to spoonscheck@outlook.com, or manually add a visit or pub using the buttons on the left</h5>
 					<br>
 					<br>
 					<br>
@@ -103,7 +104,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-success" onclick="addPub()">Add</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="reloadPage()">Close</button>
                 </div>
               </div>
           
@@ -124,18 +125,18 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-default">Pub ID</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="modalOldPubID">
                   </div>
                   <div class="input-group input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-default">New Pub Name</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="modalNewPubName">
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-success" onclick="addPub()">Update</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success" onclick="updatePub()">Update</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reloadPage()">Close</button>
                 </div>
               </div>
           
@@ -160,7 +161,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-success" onclick="addPub()">Delete</button>
+                  <button type="button" class="btn btn-success" onclick="deletePub()">Delete</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reloadPage()">Close</button>
                 </div>
               </div>
@@ -214,7 +215,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" onclick="addVisit()">Add</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reloadPage()">Close</button>
                 </div>
               </div>
           
@@ -235,10 +236,44 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-default">Visit ID</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id= "modalOldVisitID">
                   </div>
+                  <div class="input-group input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Pub Name</span>
+                      </div>
+                      <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="modalEntryUpdatePubName">
+                    </div>
+                    <div class="input-group input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroup-sizing-default">Postcode</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="modalEntryUpdatePostcode">
+                      </div>
+                    
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+                      </div>
+                      <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="modalEntryUpdateUsername">
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Order Total</span>
+                      </div>
+                      <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="modalEntryUpdateOrderTotal">
+                    </div>
+  
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Date</span>
+                      </div>
+                      <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="modalEntryUpdateDate">
+                    </div>
                 </div>
                 <div class="modal-footer">
+                  <button type="button" class="btn btn-success" onclick="updateVisit()">Update</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
@@ -260,16 +295,18 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-default">Visit ID:</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="modalVisitID">
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" onclick="deleteVisit()">Delete</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="reloadPage()">Close</button>
                 </div>
               </div>
           
             </div>
           </div> 
+
 <script src="script.js"></script>
 </body>
 <footer>

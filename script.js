@@ -1,9 +1,10 @@
 const pubTable = document.getElementById("pubTable");
-var userEntryCount = 0;
-var totalPubCount = 0;
+let userEntryCount = 0;
+let totalPubCount = 0;
+let userPubCount = 0;
 
 var map = new ol.Map({
-    target: 'map',
+    target: "map",
     layers: [
         new ol.layer.Tile({
             source: new ol.source.OSM()
@@ -29,6 +30,25 @@ function httpRequest(method, url, callback, headers, body) {
     body ? xml.send(body) : xml.send();
 }
 
+function getEntries(data) {
+    let retData = JSON.parse(data);
+
+    
+    input = document.getElementById("enteredEmail").value;
+
+    for (i = 0; i < retData.length; i++) {
+        if (retData[i].username == input) {
+            retrievePubLocation(retData[i].postcode);
+            userEntryCount += 1;
+        }
+    }
+
+    document.getElementById("entryText").innerHTML = "You have " + userEntryCount + " logged purchases";
+    document.getElementById("pubText").innerHTML = "There are currently " + totalPubCount + " Wetherspoons in the UK and Ireland";
+
+    
+}
+
 function retrievePubsVisited() {
     const mapLayers = [...map.getLayers().getArray()];
     for(let i = 1; i < mapLayers.length; i++){
@@ -38,7 +58,7 @@ function retrievePubsVisited() {
     userEntryCount = 0;
 
     let method = "GET";
-    let url = "http://34.90.35.87:9000/pubs"
+    let url = "http://34.90.35.87:9000/pubs";
     let callback = getEntries;
     let headers = {
         "Accept": "application/json;charset=UTF-8",
@@ -62,37 +82,8 @@ function retrievePubLocation(postcode) {
 
 }
 
-function getLatLon(data) {
-    let retData = JSON.parse(data);
-
-    console.log(retData.result.longitude);
-
-    addMarker(retData.result.latitude, retData.result.longitude);
-
-}
-
-function getEntries(data) {
-    retData = JSON.parse(data);
-
-    
-    input = document.getElementById("enteredEmail").value;
-
-    for (i = 0; i < retData.length; i++) {
-        if (retData[i].username == input) {
-            retrievePubLocation(retData[i].postcode);
-            userEntryCount += 1;
-        }
-    }
-
-    document.getElementById("entryText").innerHTML = "You have " + userEntryCount + " logged purchases";
-    document.getElementById("pubText").innerHTML = "There are currently " + totalPubCount + " Wetherspoons in the UK and Ireland";
-
-    
-}
-
-
 function addMarker(lat, lon) {
-    
+
 
     var layer = new ol.layer.Vector({
         source: new ol.source.Vector({
@@ -106,6 +97,55 @@ function addMarker(lat, lon) {
     map.addLayer(layer);
 
 }
+
+function getLatLon(data) {
+    let retData = JSON.parse(data);
+
+
+    addMarker(retData.result.latitude, retData.result.longitude);
+
+}
+
+
+
+function getTotalPubCount(){
+    var json;
+    var xhr = new XMLHttpRequest();
+    var url = "http://34.90.35.87:9000/pubcount";
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = () => {
+
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            json = JSON.parse(xhr.responseText);
+
+            
+            totalPubCount = json;
+
+            
+        
+            }
+    }
+
+    
+
+    
+
+    xhr.send();
+    return json;
+
+ }
+
+ async function newTableEntries(table){
+    let row = document.createElement("tr");
+    for( let i =1; i <arguments.length;i++){
+        let box = document.createElement("td");
+        box.innerHTML = arguments[i];
+        row.appendChild(box);
+    }
+    table.appendChild(row);
+ }
+
 
 function getAllPubs() {
 
@@ -135,43 +175,9 @@ function getAllPubs() {
     return false;
 }
 
-async function newTableEntries(table){
-    row = document.createElement("tr");
-    for( let i =1; i <arguments.length;i++){
-        box = document.createElement("td");
-        box.innerHTML = arguments[i];
-        row.appendChild(box);
-    }
-    table.appendChild(row);
- }
 
- function getTotalPubCount(){
-    var json;
-    var xhr = new XMLHttpRequest();
-    var url = "http://34.90.35.87:9000/pubcount";
-    xhr.open("GET", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = () => {
 
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            json = JSON.parse(xhr.responseText);
 
-            
-            totalPubCount = json;
-
-            
-        
-            }
-    }
-
-    
-
-    
-
-    xhr.send();
-    return json;
-
- }
 
  function getEntryCount(){
     var json;
@@ -202,7 +208,7 @@ async function newTableEntries(table){
     let stringPub = JSON.stringify(pubName);
 
     let method = "POST";
-    let url = "http://34.90.35.87:9000/publist"
+    let url = "http://34.90.35.87:9000/publist";
     let callback = successfulAdd;
     let headers = {
         "Content-Type": "application/json",
@@ -214,7 +220,7 @@ async function newTableEntries(table){
 
 function updatePub(){
     let pubName = {pub: document.getElementById("modalNewPubName").value};
-    let pubID = document.getElementById("modalOldPubID").value
+    let pubID = document.getElementById("modalOldPubID").value;
     let stringPub = JSON.stringify(pubName);
 
     let method = "PUT";
@@ -232,7 +238,7 @@ function deletePub(){
 
 
     let method = "DELETE";
-    let url = "http://34.90.35.87:9000/publist/" + pubID 
+    let url = "http://34.90.35.87:9000/publist/" + pubID;
     let callback = successfulAdd;
     let headers = {
         "Content-Type": "application/json",
@@ -285,7 +291,7 @@ function deleteVisit(){
 
 
     let method = "DELETE";
-    let url = "http://34.90.35.87:9000/pubs/" + visitID 
+    let url = "http://34.90.35.87:9000/pubs/" + visitID;
     let callback = successfulAdd;
     let headers = {
         "Content-Type": "application/json",

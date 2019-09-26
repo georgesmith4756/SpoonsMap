@@ -84,7 +84,8 @@ function getEntries(data) {
         }
     }
 
-    document.getElementById("entryText").innerHTML = "You have " + userEntryCount + " logged visits";
+    document.getElementById("entryText").innerHTML = "You have " + userEntryCount + " logged purchases";
+    document.getElementById("pubText").innerHTML = "There are currently " + totalPubCount + " Wetherspoons in the UK and Ireland";
 
     
 }
@@ -162,6 +163,10 @@ async function newTableEntries(table){
         
             }
     }
+
+    
+
+    
 
     xhr.send();
     return json;

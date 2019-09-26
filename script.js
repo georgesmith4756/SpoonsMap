@@ -35,7 +35,7 @@ function retrievePubsVisited() {
         map.removeLayer(mapLayers[i]);
     }
 
-    userPubCount = 0;
+    userEntryCount = 0;
 
     let method = "GET";
     let url = "http://34.90.35.87:9000/pubs"
@@ -74,7 +74,7 @@ function getLatLon(data) {
 function getEntries(data) {
     retData = JSON.parse(data);
 
-    //debugger;
+    
     input = document.getElementById("enteredEmail").value;
 
     for (i = 0; i < retData.length; i++) {
@@ -84,7 +84,8 @@ function getEntries(data) {
         }
     }
 
-    document.getElementById("entryText").innerHTML = "You have " + userEntryCount + " logged visits";
+    document.getElementById("entryText").innerHTML = "You have " + userEntryCount + " logged purchases";
+    document.getElementById("pubText").innerHTML = "There are currently " + totalPubCount + " Wetherspoons in the UK and Ireland";
 
     
 }
@@ -125,7 +126,7 @@ function getAllPubs() {
     
         for(let i=0;i<json.length;i++){
             let temp = json[i];
-            newTableEntries(pubTable,temp["pub"]);
+            newTableEntries(pubTable,temp["pub"], temp["id"]);
         }
     }
     }
@@ -162,6 +163,10 @@ async function newTableEntries(table){
         
             }
     }
+
+    
+
+    
 
     xhr.send();
     return json;
@@ -208,12 +213,12 @@ async function newTableEntries(table){
 }
 
 function updatePub(){
-    let pubName = {pub: document.getElementById("modalPubText").value};
-
+    let pubName = {pub: document.getElementById("modalNewPubName").value};
+    let pubID = document.getElementById("modalOldPubID").value
     let stringPub = JSON.stringify(pubName);
 
     let method = "PUT";
-    let url = "http://34.90.35.87:9000/publist"
+    let url = "http://34.90.35.87:9000/publist/" + pubID;
     let callback = successfulAdd;
     let headers = {
         "Content-Type": "application/json",
@@ -223,17 +228,16 @@ function updatePub(){
 }
 
 function deletePub(){
-    let pubName = {pub: document.getElementById("modalPubText").value};
+    let pubID = document.getElementById("pubUpdateID").value;
 
-    let stringPub = JSON.stringify(pubName);
 
     let method = "DELETE";
-    let url = "http://34.90.35.87:9000/publist"
+    let url = "http://34.90.35.87:9000/publist/" + pubID 
     let callback = successfulAdd;
     let headers = {
         "Content-Type": "application/json",
     }
-    httpRequest(method, url, callback, headers, stringPub);
+    httpRequest(method, url, callback, headers);
     
 }
 
@@ -247,7 +251,7 @@ function addVisit(){
     let stringEntry = JSON.stringify(entry);
 
     let method = "POST";
-    let url = "http://34.90.35.87:9000/pubs"
+    let url = "http://34.90.35.87:9000/pubs";
     let callback = successfulAdd;
     let headers = {
         "Content-Type": "application/json",
@@ -257,19 +261,43 @@ function addVisit(){
 }
 
 function updateVisit(){
+    let data = {pub: document.getElementById("modalEntryUpdatePubName").value,
+                username: document.getElementById("modalEntryUpdateUsername").value, 
+                date: document.getElementById("modalEntryUpdateDate").value,
+                orderTotal: document.getElementById("modalEntryUpdateOrderTotal").value,
+                postcode: document.getElementById("modalEntryUpdatePostcode").value};
 
+    let visitID = document.getElementById("modalOldVisitID").value
+    let stringVisit = JSON.stringify(pubName);
+
+    let method = "PUT";
+    let url = "http://34.90.35.87:9000/pubs/" + pubID;
+    let callback = successfulAdd;
+    let headers = {
+        "Content-Type": "application/json",
+    }
+    httpRequest(method, url, callback, headers, stringVisit);
     
 }
 
 function deleteVisit(){
+    let visitID = document.getElementById("modalVisitID").value;
 
+
+    let method = "DELETE";
+    let url = "http://34.90.35.87:9000/pubs/" + visitID 
+    let callback = successfulAdd;
+    let headers = {
+        "Content-Type": "application/json",
+    }
+    httpRequest(method, url, callback, headers);
     
 }
 
 function successfulAdd(){
-    window.alert("added");
+   console.log("successful");
 }
 
 function reloadPage(){
-    location.reload()
+    location.reload();
 }

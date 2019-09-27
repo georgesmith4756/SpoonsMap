@@ -307,3 +307,30 @@ function successfulAdd(){
 function reloadPage(){
     location.reload();
 }
+
+function showVisits() {
+    const visitTable = document.getElementById("visitTable");
+   
+
+    var json;
+    var xhr = new XMLHttpRequest();
+    var url = "http://34.90.35.87:9000/pubs";
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = () => {
+
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            json = JSON.parse(xhr.responseText);
+        
+            
+    
+        for(let i=0;i<json.length;i++){
+            let temp = json[i];
+            newTableEntries(visitTable,temp["pub"],temp["username"],temp["date"],temp["orderTotal"],temp["postcode"],temp["id"]);
+        }
+    }
+    }
+
+    xhr.send();
+    return false;
+}

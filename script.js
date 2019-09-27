@@ -58,7 +58,7 @@ function retrievePubsVisited() {
     userEntryCount = 0;
 
     let method = "GET";
-    let url = "http://34.90.35.87:9000/pubs";
+    let url = "http://35.204.239.92:9000/pubs";
     let callback = getEntries;
     let headers = {
         "Accept": "application/json;charset=UTF-8",
@@ -72,7 +72,7 @@ function retrievePubsVisited() {
 
 function retrievePubLocation(postcode) {
     let method = "GET";
-    let url = "http://34.90.35.87:8000/postcodes/" + postcode;
+    let url = "http://35.204.239.92:8000/postcodes/" + postcode;
     let callback = getLatLon;
     let headers = {
         "Accept": "application/json;charset=UTF-8",
@@ -111,7 +111,7 @@ function getLatLon(data) {
 function getTotalPubCount(){
     var json;
     var xhr = new XMLHttpRequest();
-    var url = "http://34.90.35.87:9000/pubcount";
+    var url = "http://35.204.239.92:9000/pubcount";
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = () => {
@@ -154,7 +154,7 @@ function getAllPubs() {
 
     var json;
     var xhr = new XMLHttpRequest();
-    var url = "http://34.90.35.87:9000/publist";
+    var url = "http://35.204.239.92:9000/publist";
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = () => {
@@ -182,7 +182,7 @@ function getAllPubs() {
  function getEntryCount(){
     var json;
     var xhr = new XMLHttpRequest();
-    var url = "http://34.90.35.87:9000/entrycount";
+    var url = "http://35.204.239.92:9000/entrycount";
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = () => {
@@ -208,7 +208,7 @@ function getAllPubs() {
     let stringPub = JSON.stringify(pubName);
 
     let method = "POST";
-    let url = "http://34.90.35.87:9000/publist";
+    let url = "http://35.204.239.92:9000/publist";
     let callback = successfulAdd;
     let headers = {
         "Content-Type": "application/json",
@@ -224,7 +224,7 @@ function updatePub(){
     let stringPub = JSON.stringify(pubName);
 
     let method = "PUT";
-    let url = "http://34.90.35.87:9000/publist/" + pubID;
+    let url = "http://35.204.239.92:9000/publist/" + pubID;
     let callback = successfulAdd;
     let headers = {
         "Content-Type": "application/json",
@@ -238,7 +238,7 @@ function deletePub(){
 
 
     let method = "DELETE";
-    let url = "http://34.90.35.87:9000/publist/" + pubID;
+    let url = "http://35.204.239.92:9000/publist/" + pubID;
     let callback = successfulAdd;
     let headers = {
         "Content-Type": "application/json",
@@ -257,7 +257,7 @@ function addVisit(){
     let stringEntry = JSON.stringify(entry);
 
     let method = "POST";
-    let url = "http://34.90.35.87:9000/pubs";
+    let url = "http://35.204.239.92:9000/pubs";
     let callback = successfulAdd;
     let headers = {
         "Content-Type": "application/json",
@@ -277,7 +277,7 @@ function updateVisit(){
     let stringVisit = JSON.stringify(pubName);
 
     let method = "PUT";
-    let url = "http://34.90.35.87:9000/pubs/" + pubID;
+    let url = "http://35.204.239.92:9000/pubs/" + pubID;
     let callback = successfulAdd;
     let headers = {
         "Content-Type": "application/json",
@@ -291,7 +291,7 @@ function deleteVisit(){
 
 
     let method = "DELETE";
-    let url = "http://34.90.35.87:9000/pubs/" + visitID;
+    let url = "http://35.204.239.92:9000/pubs/" + visitID;
     let callback = successfulAdd;
     let headers = {
         "Content-Type": "application/json",
@@ -314,7 +314,7 @@ function showVisits() {
 
     var json;
     var xhr = new XMLHttpRequest();
-    var url = "http://34.90.35.87:9000/pubs";
+    var url = "http://35.204.239.92:9000/pubs";
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = () => {

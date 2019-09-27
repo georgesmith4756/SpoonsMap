@@ -59,6 +59,10 @@
 	 padding:10px;
 	 visibility: visible;
  }
+
+ #showVisitsModal {
+     overflow: scroll;
+ }
  
  #headerText {
      font-family: 'Arvo', serif;
